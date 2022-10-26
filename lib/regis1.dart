@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hierr/data.dart';
+import 'package:hierr/homepage.dart';
 
 class Regis extends StatefulWidget {
   const Regis({super.key});
@@ -10,9 +12,12 @@ class Regis extends StatefulWidget {
 
 class _RegisState extends State<Regis> {
   @override
+  final email = TextEditingController();
+  final pass = TextEditingController();
   Widget build(BuildContext context) {
     double scheight = MediaQuery.of(context).size.height;
     double scwidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -62,6 +67,7 @@ class _RegisState extends State<Regis> {
                         height: scheight * 0.06,
                       ),
                       TextField(
+                          controller: email,
                           decoration: InputDecoration(
                             fillColor: Color.fromARGB(243, 217, 197, 226),
                             filled: true,
@@ -75,6 +81,7 @@ class _RegisState extends State<Regis> {
                         height: scheight * 0.06,
                       ),
                       TextField(
+                          controller: pass,
                           obscureText: true,
                           decoration: InputDecoration(
                             fillColor: Color.fromARGB(243, 217, 197, 226),
@@ -100,13 +107,21 @@ class _RegisState extends State<Regis> {
                       width: scwidth * 0.38,
                     ),
                     CircleAvatar(
-                      radius: 40,
+                      radius: 30,
                       child: IconButton(
                         onPressed: () {
-                          FirebaseAuth.instance.createUserWithEmailAndPassword(
-                              email: email.text, password:pass).then((value) {
-                                Navigator.push(context, Homepage)
-                              })
+                          FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: email.text, password: pass.text)
+                              .then((value) {
+                            print('Created New Account');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => Data())));
+                          }).onError((error, stackTrace) {
+                            print("Error ${error.toString()}");
+                          });
                         },
                         icon: Icon(Icons.arrow_forward),
                       ),

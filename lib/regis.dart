@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hierr/data.dart';
 import 'package:hierr/homepage.dart';
 
 class Login extends StatefulWidget {
@@ -11,10 +12,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   @override
+  final email = TextEditingController();
+  final pass = TextEditingController();
   Widget build(BuildContext context) {
-    final email = TextEditingController();
-    final pass = TextEditingController();
-
     double scheight = MediaQuery.of(context).size.height;
     double scwidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -97,10 +97,15 @@ class _LoginState extends State<Login> {
                       child: IconButton(
                         onPressed: () {
                           FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
+                              .signInWithEmailAndPassword(
                                   email: email.text, password: pass.text)
                               .then((value) {
-                            Navigator.pushNamed(context, 'Homepage');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => Homepage())));
+                          }).onError((error, stackTrace) {
+                            print("error ${error.toString()}");
                           });
                         },
                         icon: Icon(Icons.arrow_forward),
@@ -124,7 +129,13 @@ class _LoginState extends State<Login> {
                             fontSize: 20,
                             color: Color.fromARGB(255, 211, 114, 226)),
                       ))
-                ])
+                ]),
+                IconButton(
+                    onPressed: (() {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: ((context) => Data())));
+                    }),
+                    icon: Text('test'))
               ],
             ),
           ),

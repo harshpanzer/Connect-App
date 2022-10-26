@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hierr/user.dart';
+import 'package:hierr/homepage.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+class User extends StatefulWidget {
+  const User({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<User> createState() => _UserState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Explore'),
+        title: Text('Profile'),
         backgroundColor: Color.fromARGB(255, 93, 213, 127),
       ),
       drawer: Drawer(
@@ -43,6 +43,7 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
+      body: SafeArea(child: Container()),
     );
   }
 }
