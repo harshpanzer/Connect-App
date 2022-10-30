@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hierr/data.dart';
 import 'package:hierr/homepage.dart';
 
 class User extends StatefulWidget {
@@ -43,7 +44,24 @@ class _UserState extends State<User> {
           ],
         ),
       ),
-      body: SafeArea(child: Container()),
+      body: SafeArea(
+          child: Container(
+              child: Stack(children: [
+        Container(
+          height: 200,
+          width: double.infinity,
+          foregroundDecoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('asset/hand.jpg'), fit: BoxFit.cover),
+          ),
+        ),
+        IconButton(
+            onPressed: (() {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: ((context) => Data())));
+            }),
+            icon: Text('test'))
+      ]))),
     );
   }
 }

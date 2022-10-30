@@ -2,6 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hierr/data.dart';
 import 'package:hierr/homepage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hierr/user_model.dart';
+import 'package:hierr/regis.dart';
 
 class Regis extends StatefulWidget {
   const Regis({super.key});
@@ -14,9 +18,11 @@ class _RegisState extends State<Regis> {
   @override
   final email = TextEditingController();
   final pass = TextEditingController();
+  final usernametextconroller = TextEditingController();
   Widget build(BuildContext context) {
     double scheight = MediaQuery.of(context).size.height;
     double scwidth = MediaQuery.of(context).size.width;
+    //UserModel loggedInUser = UserModel();
 
     return Scaffold(
       body: SafeArea(
@@ -54,6 +60,7 @@ class _RegisState extends State<Regis> {
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Column(children: [
                       TextField(
+                          controller: usernametextconroller,
                           decoration: InputDecoration(
                             fillColor: Color.fromARGB(243, 217, 197, 226),
                             filled: true,
@@ -114,11 +121,14 @@ class _RegisState extends State<Regis> {
                               .createUserWithEmailAndPassword(
                                   email: email.text, password: pass.text)
                               .then((value) {
+                            postDetailsToFirestore();
                             print('Created New Account');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => Data())));
+                                    builder: ((context) => Data(
+                                        //userId:loggedInUser.uid,
+                                        ))));
                           }).onError((error, stackTrace) {
                             print("Error ${error.toString()}");
                           });
@@ -151,5 +161,27 @@ class _RegisState extends State<Regis> {
         ),
       ),
     );
+  }
+
+  postDetailsToFirestore() async {
+    // calling our firestore
+    // calling our user model
+    // sedning these values
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = FirebaseAuth.instance.currentUser;
+
+    UserModel userModel = UserModel();
+
+    // writing all the values
+    userModel.email = user!.email;
+    userModel.uid = user.uid;
+    userModel.userName = usernametextconroller.text;
+    print("data taken");
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
   }
 }

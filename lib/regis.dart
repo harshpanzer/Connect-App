@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hierr/data.dart';
 import 'package:hierr/homepage.dart';
@@ -14,6 +15,7 @@ class _LoginState extends State<Login> {
   @override
   final email = TextEditingController();
   final pass = TextEditingController();
+  final _auth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
     double scheight = MediaQuery.of(context).size.height;
     double scwidth = MediaQuery.of(context).size.width;
