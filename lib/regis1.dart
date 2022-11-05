@@ -130,7 +130,7 @@ class _RegisState extends State<Regis> {
                                         //userId:loggedInUser.uid,
                                         ))));
                           }).onError((error, stackTrace) {
-                            print("Error ${error.toString()}");
+                            print("\nError ${error.toString()}");
                           });
                         },
                         icon: Icon(Icons.arrow_forward),
@@ -164,16 +164,11 @@ class _RegisState extends State<Regis> {
   }
 
   postDetailsToFirestore() async {
-    // calling our firestore
-    // calling our user model
-    // sedning these values
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = FirebaseAuth.instance.currentUser;
 
     UserModel userModel = UserModel();
 
-    // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.userName = usernametextconroller.text;

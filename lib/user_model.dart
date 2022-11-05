@@ -5,23 +5,31 @@ class UserModel {
   String? phoneno;
   String? organisation;
   String? bio;
-  UserModel(
-      {this.uid,
-      this.email,
-      this.userName,
-      this.phoneno,
-      this.organisation,
-      this.bio});
+  String? imageurl;
+  String? imageurl1;
+  UserModel({
+    this.uid,
+    this.email,
+    this.userName,
+    this.phoneno,
+    this.organisation,
+    this.bio,
+    this.imageurl,
+    this.imageurl1,
+  });
 
   // receiving data from server
   factory UserModel.fromMap(map) {
     return UserModel(
-        uid: map['uid'],
-        email: map['email'],
-        userName: map['userName'],
-        phoneno: map['phoneno'],
-        organisation: map['organisation'],
-        bio: map['bio']);
+      uid: map['uid'],
+      email: map['email'],
+      userName: map['userName'],
+      phoneno: map['phoneno'],
+      organisation: map['organisation'],
+      bio: map['bio'],
+      imageurl: map['imageurl'],
+      imageurl1: map['imageurl1'],
+    );
   }
 
   // sending data to our server
@@ -33,6 +41,8 @@ class UserModel {
       'phoneno': phoneno,
       'organisation': organisation,
       'bio': bio,
+      'imageurl': imageurl,
+      'imageurl1': imageurl1,
     };
   }
 }

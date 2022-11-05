@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hierr/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -9,7 +10,16 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  HomePageFetch homePageFetch = new HomePageFetch();
+  late QuerySnapshot adSnapshot;
+
   @override
+  void Fetchdatasnap() {
+    homePageFetch.getData().then((result) {
+      adSnapshot = result;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -36,13 +46,28 @@ class _HomepageState extends State<Homepage> {
             ListTile(
               title: Text('Me'),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: ((context) => User())));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => Userscreen())));
               },
             )
           ],
         ),
       ),
     );
+  }
+}
+
+class HomePageFetch {
+  Future<void> addData(homeData) async {
+    FirebaseFirestore.instance
+        .collection("users")
+        .add(homeData)
+        .catchError((e) {
+      print(e);
+    });
+  }
+
+  getData() async {
+    return await FirebaseFirestore.instance.collection("users").get();
   }
 }

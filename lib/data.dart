@@ -9,8 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Data extends StatefulWidget {
-  String? userId;
-  Data({
+  const Data({
     super.key,
   });
 
@@ -20,6 +19,7 @@ class Data extends StatefulWidget {
 
 class _DataState extends State<Data> {
   @override
+  String? userId;
   File? image;
   File? image1;
   final phone = TextEditingController();
@@ -172,6 +172,7 @@ class _DataState extends State<Data> {
                           //fillColor: Color.fromARGB(243, 217, 197, 226),
                           filled: true,
                           labelText: "Organisation Name and Year",
+
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30)),
                           prefixIcon: Icon(Icons.school),
@@ -190,6 +191,7 @@ class _DataState extends State<Data> {
                         // fillColor: Color.fromARGB(243, 217, 197, 226),
                         filled: true,
                         labelText: "Bio",
+
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30)),
                         prefixIcon: Icon(Icons.monitor_heart),
@@ -222,13 +224,6 @@ class _DataState extends State<Data> {
     );
   }
 
-  void initState() {
-    super.initState();
-    FirebaseFirestore.instance.collection("users").doc(user!.uid).get().then(
-        (value) => setState(
-            () => this.loggedInUser = UserModel.fromMap(value.data())));
-  }
-
   postDetailsToFirestore() async {
     // calling our firestore
     // calling our user model
@@ -252,6 +247,18 @@ class _DataState extends State<Data> {
       'bio': bio.text,
       'imageurl': imageurl,
       'imageurl1': imageurl1,
+    });
+  }
+
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
     });
   }
 }
