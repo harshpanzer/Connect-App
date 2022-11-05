@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hierr/user.dart';
 import 'package:hierr/user_model.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -109,14 +110,23 @@ class _DataState extends State<Data> {
                   onTap: () {
                     pickimage1();
                   },
-                  child: Container(
-                    height: 200,
-                    width: double.infinity,
-                    foregroundDecoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('asset/hand.jpg'),
-                            fit: BoxFit.cover)),
-                  )),
+                  child: imageurl1 == " "
+                      ? Container(
+                          height: 200,
+                          width: double.infinity,
+                          foregroundDecoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('asset/hand.jpg'),
+                                  fit: BoxFit.cover)),
+                        )
+                      : Container(
+                          height: 200,
+                          width: double.infinity,
+                          foregroundDecoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(imageurl1),
+                                  fit: BoxFit.cover)),
+                        )),
               Column(
                 children: [
                   GestureDetector(
@@ -213,6 +223,10 @@ class _DataState extends State<Data> {
                       ),
                       onPressed: () {
                         postDetailsToFirestore();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => Userscreen())));
                       },
                       child: Text('Submit'))
                 ],

@@ -4,6 +4,7 @@ import 'package:hierr/homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:hierr/regis.dart';
 import 'package:hierr/user_model.dart';
 import 'package:flutter/services.dart';
 
@@ -17,6 +18,7 @@ class Userscreen extends StatefulWidget {
 class _UserscreenState extends State<Userscreen> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +26,14 @@ class _UserscreenState extends State<Userscreen> {
     double scwidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          title: Text('Profile'),
+          title: Text(
+            'Profile',
+            style: TextStyle(),
+          ),
           backgroundColor: Color.fromARGB(255, 93, 213, 127),
         ),
         drawer: Drawer(
+          backgroundColor: Color.fromARGB(255, 205, 163, 244),
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
@@ -38,17 +44,32 @@ class _UserscreenState extends State<Userscreen> {
                           fit: BoxFit.cover)),
                   child: Text('Index')),
               ListTile(
-                title: Text('Explore'),
+                title: Text(
+                  'Explore',
+                  style: TextStyle(color: Color.fromARGB(255, 253, 253, 253)),
+                ),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: ((context) => Homepage())));
                 },
               ),
               ListTile(
-                title: Text('Me'),
+                title: Text(
+                  'Profile',
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 254)),
+                ),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: ((context) => Userscreen())));
+                },
+              ),
+              ListTile(
+                title: Text('Sign Out',
+                    style:
+                        TextStyle(color: Color.fromARGB(255, 251, 251, 251))),
+                onTap: () async {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => Login())));
                 },
               )
             ],
@@ -80,7 +101,8 @@ class _UserscreenState extends State<Userscreen> {
                           margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('asset/hand.jpg'),
+                                  image:
+                                      NetworkImage("${loggedInUser.imageurl1}"),
                                   fit: BoxFit.cover)),
                           child: CircleAvatar(
                             radius: scwidth * 0.1,
@@ -197,20 +219,24 @@ class _UserscreenState extends State<Userscreen> {
                         fontWeight: FontWeight.w900),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
+                    width: scwidth,
                     child: IconButton(
-                  onPressed: (() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => Data())));
-                  }),
-                  icon: Text(
-                    "EditProfile",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Color.fromARGB(255, 241, 242, 243),
-                        fontWeight: FontWeight.w900),
-                  ),
-                ))
+                      onPressed: (() {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: ((context) => Data())));
+                      }),
+                      icon: Text(
+                        "Edit Profile",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 142, 222, 242),
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ))
               ]))),
         ));
   }
@@ -225,5 +251,14 @@ class _UserscreenState extends State<Userscreen> {
       this.loggedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
+  }
+
+  Future signOut() async {
+    try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 }

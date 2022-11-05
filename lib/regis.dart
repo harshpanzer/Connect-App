@@ -54,21 +54,22 @@ class _LoginState extends State<Login> {
                 Container(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Column(children: [
-                      TextField(
-                          controller: email,
-                          decoration: InputDecoration(
-                            fillColor: Color.fromARGB(243, 217, 197, 226),
-                            filled: true,
-                            labelText: "E-mail",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            prefixIcon: Icon(Icons.mail),
-                          ),
-                          keyboardType: TextInputType.emailAddress),
+                      TextFormField(
+                        controller: email,
+                        decoration: InputDecoration(
+                          fillColor: Color.fromARGB(243, 217, 197, 226),
+                          filled: true,
+                          labelText: "E-mail",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          prefixIcon: Icon(Icons.mail),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
                       SizedBox(
                         height: scheight * 0.06,
                       ),
-                      TextField(
+                      TextFormField(
                           controller: pass,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -132,12 +133,6 @@ class _LoginState extends State<Login> {
                             color: Color.fromARGB(255, 211, 114, 226)),
                       ))
                 ]),
-                IconButton(
-                    onPressed: (() {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: ((context) => Data())));
-                    }),
-                    icon: Text('test'))
               ],
             ),
           ),

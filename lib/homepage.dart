@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hierr/regis.dart';
 import 'package:hierr/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -37,22 +38,42 @@ class _HomepageState extends State<Homepage> {
                         fit: BoxFit.cover)),
                 child: Text('Index')),
             ListTile(
-              title: Text('Explore'),
+              title: Text(
+                'Explore',
+                style: TextStyle(color: Color.fromARGB(255, 252, 252, 252)),
+              ),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => Homepage())));
               },
             ),
             ListTile(
-              title: Text('Me'),
+              title: Text(
+                'Profile',
+                style: TextStyle(color: Color.fromARGB(255, 254, 254, 254)),
+              ),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => Userscreen())));
+              },
+            ),
+            ListTile(
+              title: Text('Sign Out',
+                  style: TextStyle(color: Color.fromARGB(255, 254, 255, 253))),
+              onTap: () async {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => Login())));
               },
             )
           ],
         ),
       ),
+      body: SafeArea(
+          child: Container(
+        child: Column(
+          children: [],
+        ),
+      )),
     );
   }
 }
