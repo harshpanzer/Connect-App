@@ -28,6 +28,7 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Color.fromARGB(255, 93, 213, 127),
       ),
       drawer: Drawer(
+        backgroundColor: Color.fromARGB(255, 205, 163, 244),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [

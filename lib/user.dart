@@ -95,24 +95,51 @@ class _UserscreenState extends State<Userscreen> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                             color: Color.fromARGB(255, 255, 188, 64)),
-                        child: Container(
-                          height: scheight * 0.25,
-                          width: double.infinity,
-                          margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      NetworkImage("${loggedInUser.imageurl1}"),
-                                  fit: BoxFit.cover)),
-                          child: CircleAvatar(
-                            radius: scwidth * 0.1,
-                            backgroundImage: NetworkImage(
-                              "${loggedInUser.imageurl}",
-                            ),
-                          ),
-                        ),
+                        child: loggedInUser.imageurl1 == " "
+                            ? Container(
+                                height: scheight * 0.25,
+                                width: double.infinity,
+                                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage("asset/hand.jpg"),
+                                        fit: BoxFit.cover)),
+                                child: ClipOval(
+                                  child: loggedInUser.imageurl == " "
+                                      ? Icon(
+                                          Icons.person,
+                                          size: 200,
+                                        )
+                                      : Image.network(
+                                          "${loggedInUser.imageurl}",
+                                          width: 200,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              )
+                            : Container(
+                                height: scheight * 0.25,
+                                width: double.infinity,
+                                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            "${loggedInUser.imageurl1}"),
+                                        fit: BoxFit.cover)),
+                                child: loggedInUser.imageurl == " "
+                                    ? Icon(
+                                        Icons.person,
+                                        size: 200,
+                                      )
+                                    : Image.network(
+                                        "${loggedInUser.imageurl}",
+                                        width: 200,
+                                        height: 200,
+                                        fit: BoxFit.cover,
+                                      ),
 
-                        /* ClipOval(
+                                /* ClipOval(
               child: Image.network(
                 ("${loggedInUser.imageurl}"),
                 width: 200,
@@ -120,6 +147,7 @@ class _UserscreenState extends State<Userscreen> {
                 fit: BoxFit.cover,
               ),
             ),*/
+                              ),
                       )
                     ],
                   ),
