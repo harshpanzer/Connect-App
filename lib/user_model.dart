@@ -7,6 +7,9 @@ class UserModel {
   String? bio;
   String? imageurl;
   String? imageurl1;
+  String? title;
+  String? detail;
+
   UserModel({
     this.uid,
     this.email,
@@ -16,6 +19,8 @@ class UserModel {
     this.bio,
     this.imageurl,
     this.imageurl1,
+    this.detail,
+    this.title,
   });
 
   // receiving data from server
@@ -29,6 +34,8 @@ class UserModel {
       bio: map['bio'],
       imageurl: map['imageurl'],
       imageurl1: map['imageurl1'],
+      detail: map['detail'],
+      title: map['title'],
     );
   }
 
@@ -43,6 +50,8 @@ class UserModel {
       'bio': bio,
       'imageurl': imageurl,
       'imageurl1': imageurl1,
+      'detail': detail,
+      'title': title,
     };
   }
 }

@@ -239,16 +239,11 @@ class _DataState extends State<Data> {
   }
 
   postDetailsToFirestore() async {
-    // calling our firestore
-    // calling our user model
-    // sedning these values
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = FirebaseAuth.instance.currentUser;
 
     UserModel userModel = UserModel();
 
-    // writing all the values
     userModel.phoneno = phone.text;
     userModel.organisation = occupation.text;
     userModel.bio = bio.text;

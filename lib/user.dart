@@ -114,6 +114,7 @@ class _UserscreenState extends State<Userscreen> {
                                           "${loggedInUser.imageurl}",
                                           width: 200,
                                           height: 200,
+                                          
                                           fit: BoxFit.cover,
                                         ),
                                 ),
@@ -127,17 +128,22 @@ class _UserscreenState extends State<Userscreen> {
                                         image: NetworkImage(
                                             "${loggedInUser.imageurl1}"),
                                         fit: BoxFit.cover)),
-                                child: loggedInUser.imageurl == " "
-                                    ? Icon(
-                                        Icons.person,
-                                        size: 200,
-                                      )
-                                    : Image.network(
-                                        "${loggedInUser.imageurl}",
-                                        width: 200,
-                                        height: 200,
-                                        fit: BoxFit.cover,
-                                      ),
+                                child: Container(
+                                    height: 20,
+                                    width: 20,
+                                    child: ClipOval(
+                                      child: loggedInUser.imageurl == " "
+                                          ? Icon(
+                                              Icons.person,
+                                              size: 200,
+                                            )
+                                          : Image.network(
+                                              "${loggedInUser.imageurl}",
+                                              width: 2,
+                                              height: 2,
+                                              fit: BoxFit.cover,
+                                            ),
+                                    ))
 
                                 /* ClipOval(
               child: Image.network(
@@ -147,7 +153,7 @@ class _UserscreenState extends State<Userscreen> {
                 fit: BoxFit.cover,
               ),
             ),*/
-                              ),
+                                ),
                       )
                     ],
                   ),

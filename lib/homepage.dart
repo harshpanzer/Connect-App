@@ -1,4 +1,6 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:hierr/jobdet.dart';
 import 'package:hierr/regis.dart';
 import 'package:hierr/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,17 +13,12 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  HomePageFetch homePageFetch = new HomePageFetch();
-  late QuerySnapshot adSnapshot;
-
   @override
-  void Fetchdatasnap() {
-    homePageFetch.getData().then((result) {
-      adSnapshot = result;
-    });
-  }
-
   Widget build(BuildContext context) {
+    double scheight = MediaQuery.of(context).size.height;
+    double scwidth = MediaQuery.of(context).size.width;
+    final title = TextEditingController();
+    final detail = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Text('Explore'),
@@ -72,24 +69,36 @@ class _HomepageState extends State<Homepage> {
       body: SafeArea(
           child: Container(
         child: Column(
-          children: [],
+          children: [
+            Row(
+              children: [
+                ListView(),
+                Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
+
+                // Text(
+                //   'Sign In',
+                //   style: TextStyle(fontSize: 40),
+                // ),
+                // SizedBox(
+                //   width: scwidth * 0.38,
+                // ),
+                // CircleAvatar(
+                //   radius: 40,
+                //   child: IconButton(
+                //     onPressed: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: ((context) => JobDetails())));
+                //     },
+                //     icon: Icon(Icons.arrow_forward),
+                //   ),
+                // )
+              ],
+            )
+          ],
         ),
       )),
     );
-  }
-}
-
-class HomePageFetch {
-  Future<void> addData(homeData) async {
-    FirebaseFirestore.instance
-        .collection("users")
-        .add(homeData)
-        .catchError((e) {
-      print(e);
-    });
-  }
-
-  getData() async {
-    return await FirebaseFirestore.instance.collection("users").get();
   }
 }
